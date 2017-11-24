@@ -1,0 +1,7 @@
+ex_form.example_form:
+  path: '/ex-form'
+  defaults:
+    _form:  '\Drupal\myform\Form\ExForm'
+    _title: 'Custom form'
+  requirements:
+    _permission: 'access content'
