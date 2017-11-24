@@ -2,17 +2,11 @@
 
 namespace Drupal\myform\Form;
 
-use Drupal\Core\Form\FormBase;                   // Базовый класс Form API
-use Drupal\Core\Form\FormStateInterface;              // Класс отвечает за обработку данных
+use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\FormStateInterface;
 
-/**
- * Наследуемся от базового класса Form API
- * @see \Drupal\Core\Form\FormBase
- */
 class ExForm extends FormBase
 {
-
-    // метод, который отвечает за саму форму - кнопки, поля
     public function buildForm(array $form, FormStateInterface $form_state)
     {
         $form['first_name'] = [
@@ -50,7 +44,6 @@ class ExForm extends FormBase
             '#size'=>30,
         );
 
-        // Add a submit button that handles the submission of the form.
         $form['actions']['submit'] = [
             '#type' => 'submit',
             '#value' => $this->t('Отправить форму'),
@@ -65,20 +58,17 @@ class ExForm extends FormBase
         return $form;
     }
 
-    // метод, который будет возвращать название формы
     public function getFormId()
     {
-        return 'ex_form_exform_form';
+        return 'my_form';
     }
 
-    // ф-я валидации
     public function validateForm(array &$form, FormStateInterface $form_state)
     {
-        $title = $form_state->getValue('title');
-        $is_number = preg_match("/[\d]+/", $title, $match);
-
-        if ($is_number > 0) {
-            $form_state->setErrorByName('title', $this->t('Строка содержит цифру.'));
+        $email = $form_state->getValue('email');
+        $fix = stristr(substr($email,strripos($email,'@'),strlen($email)),'.');
+        if (!$fix) {
+            $form_state->setErrorByName('email', $this->t('Неправильный адрес: добавьте доменную зону'));
         }
     }
 
@@ -127,7 +117,6 @@ class ExForm extends FormBase
         }
     }
 
-    // действия по сабмиту
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
         $mailManager = \Drupal::service('plugin.manager.mail');

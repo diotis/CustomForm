@@ -1,5 +1,5 @@
 ex_form.example_form:
-  path: '/ex-form'
+  path: '/myform'
   defaults:
     _form:  '\Drupal\myform\Form\ExForm'
     _title: 'Custom form'

@@ -1,4 +1,4 @@
-name: 'Ex From'
-description: 'Example create form in Drupal 8'
+name: 'My form'
+description: 'Custom form'
 core: 8.x
 type: module
